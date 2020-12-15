@@ -10,6 +10,8 @@ window.Vue = require('vue');
 import moment from 'moment';
 import { Form, HasError, AlertError } from 'vform';
 
+import Gate from './Gate';
+Vue.prototype.$gate=new Gate(window.user);
 
 window.Form=Form;
 Vue.component(HasError.name, HasError)
@@ -23,7 +25,7 @@ const Toast = Swal.mixin({
   toast: true,
   position: 'top-end',
   showConfirmButton: false,
-  timer: 3000,
+  timer: 2000,
   timerProgressBar: true,
   onOpen: (toast) => {
     toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -41,17 +43,24 @@ Vue.use(VueRouter)
 Vue.component('profile', require('./components/Profile.vue').default);
 Vue.component('dashboard', require('./components/Dashboard.vue').default);
 Vue.component('users', require('./components/Users.vue').default);
+Vue.component('joke', require('./components/Joke.vue').default);
+Vue.component('developer', require('./components/Developer.vue').default);
+Vue.component('water', require('./components/Water.vue').default);
+Vue.component('test', require('./components/Test.vue').default);
 
 import VueProgressBar from 'vue-progressbar'
 Vue.use(VueProgressBar, {
-  color: 'rgb(143, 255, 199)',
+  color: 'green',
   failedColor: 'red',
   height: '2px'
 })
 //let routes = [
   import Profile from './components/Profile.vue';
+  import Joke from './components/Joke.vue';
   import Dashboard from './components/Dashboard.vue';
   import Users from './components/Users.vue';
+  import Water from './components/Water.vue';
+  import Test from './components/Test.vue';
 export const routes = [{
   path: '/profile',
   component: Profile,
@@ -64,7 +73,19 @@ export const routes = [{
 },
 { path: '/users',
 component: Users,
-name: 'users'}
+name: 'users'
+},
+{ path: '/joke',
+component: Joke,
+name: 'joke'
+},
+{ path: '/test',
+component: Test,
+name: 'test'
+},
+{ path: '/water',
+component: Water,
+name: 'water'}
 ];
     //{ path: '/dashboard', component: require('./components/Dashboard.vue') },
     //{ path: '/profile', component: require('./components/Profile.vue') },
@@ -87,6 +108,25 @@ name: 'users'}
 
   });
 
+  //PASSPORT COMPONENT REGISTRATION
+  Vue.component(
+    'passport-clients',
+    require('./components/passport/Clients.vue').default
+);
+
+Vue.component(
+    'passport-authorized-clients',
+    require('./components/passport/AuthorizedClients.vue').default
+);
+
+Vue.component(
+    'passport-personal-access-tokens',
+    require('./components/passport/PersonalAccessTokens.vue').default
+);
+Vue.component(
+    'not-found',
+    require('./components/NotFound.vue').default
+);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
